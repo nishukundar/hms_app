@@ -9,6 +9,9 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -41,6 +44,11 @@ public class JWTFilter extends OncePerRequestFilter {
             Optional<AppUser> opUsername = appUserRepository.findByUsername(userName);
             if(opUsername.isPresent()){
                 AppUser appUser = opUsername.get();
+
+                UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(appUser,null,null);
+                auth.setDetails(new WebAuthenticationDetails(request));
+                SecurityContextHolder.getContext().setAuthentication(auth); //grant permission
+
             }
             
 
