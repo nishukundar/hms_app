@@ -29,7 +29,6 @@ public class UserService {
             if(BCrypt.checkpw(logindto.getPassword(), appUser.getPassword())){
                 //generate token ComputerEngineerIsUnemployed
 
-                System.out.println("Before generateToken()");
                 String token = jwtService.generateToken(appUser.getUsername());
                 return token;
             }

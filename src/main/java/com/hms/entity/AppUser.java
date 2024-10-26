@@ -24,6 +24,9 @@ public class AppUser {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @Column(name = "role", nullable = false, length = 20)
+    private String role;
+
     @Column(name = "password", nullable = false, length = 500)
     private String password;
 

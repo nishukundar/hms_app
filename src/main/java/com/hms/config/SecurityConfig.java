@@ -30,8 +30,9 @@ public class SecurityConfig {
        // http.authorizeHttpRequests().anyRequest().permitAll();
 
         http.authorizeHttpRequests()
-                .requestMatchers("/api/v1/users/signup","/api/v1/users/login")
+                .requestMatchers("/api/v1/users/signup","/api/v1/users/login", "/api/v1/users/signup-property-owner")
                 .permitAll()
+                .requestMatchers("/api/v1/country/addCountry").hasAnyRole("OWNER","ADMIN")
                 .anyRequest()
                 .authenticated();
 

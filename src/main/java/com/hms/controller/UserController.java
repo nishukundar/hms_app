@@ -27,6 +27,7 @@ public class UserController {
         this.userService = userService;
     }
 
+    //This is for those who signup using /signup url are User
     @PostMapping("/signup")
     public ResponseEntity<?> createUser(@RequestBody AppUser user){
         Optional<AppUser> byUsername = appUserRepository.findByUsername(user.getUsername());
@@ -48,10 +49,44 @@ public class UserController {
 
         String enpwd = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt(5));
         user.setPassword(enpwd);
+        user.setRole("ROLE_USER");
 
         AppUser savedUser = appUserRepository.save(user);
         return  new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
+
+    //This is for those who signup using /signup-property-owner url are Property Owner
+    //different role= different url Dont create url for ADMIN (HardCode)
+    @PostMapping("/signup-property-owner")
+    public ResponseEntity<?> createPropertyOwner(@RequestBody AppUser user){
+        Optional<AppUser> byUsername = appUserRepository.findByUsername(user.getUsername());
+
+        if(byUsername.isPresent()){
+            return new ResponseEntity<>("Username already taken", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        Optional<AppUser> byEmail = appUserRepository.findByEmail(user.getEmail());
+        if(byEmail.isPresent()){
+            return new ResponseEntity<>("Email already taken", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+
+
+        // PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();//optional
+//        String encodedPassword = passwordEncoder.encode(user.getPassword());
+//        user.setPassword(encodedPassword);
+
+        String enpwd = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt(5));
+        user.setPassword(enpwd);
+        user.setRole("ROLE_OWNER");
+
+        AppUser savedUser = appUserRepository.save(user);
+        return  new ResponseEntity<>(savedUser, HttpStatus.CREATED);
+    }
+
+
+
+
 
     @GetMapping("/hello")
     public String msg(){

@@ -54,7 +54,7 @@ public class JWTService {
 //    It verifies the token using the specified signing algorithm and issuer.
 //    If valid, it extracts the username (or relevant claim) from the token and returns it as a String.
 
-   public String getUserName(String token){//JunioR With Boxer Vicky
+   public String getUserName(String token){//JunioR With Builder Vicky
         DecodedJWT decodedJWT =
                 JWT.require(algorithm)
                 .withIssuer(issuer)
