@@ -27,14 +27,14 @@ public class SecurityConfig {
         http.addFilterBefore(jwtFilter, AuthorizationFilter.class); //we use this to make oue custom filter(jwtFilter) run first later all builtin filters can run
 
         //haap (to make all the url open no security apply not authenticate
-       // http.authorizeHttpRequests().anyRequest().permitAll();
+       http.authorizeHttpRequests().anyRequest().permitAll();
 
-        http.authorizeHttpRequests()
-                .requestMatchers("/api/v1/users/signup","/api/v1/users/login", "/api/v1/users/signup-property-owner")
-                .permitAll()
-                .requestMatchers("/api/v1/country/addCountry").hasAnyRole("OWNER","ADMIN")
-                .anyRequest()
-                .authenticated();
+//        http.authorizeHttpRequests()
+//                .requestMatchers("/api/v1/users/signup","/api/v1/users/login", "/api/v1/users/signup-property-owner")
+//                .permitAll()
+//                .requestMatchers("/api/v1/country/addCountry").hasAnyRole("OWNER","ADMIN")
+//                .anyRequest()
+//                .authenticated();
 
         return http.build();   //build() will build http object with all above configuration
 
