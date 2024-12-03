@@ -1,5 +1,6 @@
 package com.hms.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,7 +16,7 @@ public class Property {
     private Long id;
 
     @Column(name = "no_of_guests", nullable = false)
-    private String no_of_guests;
+    private Integer no_of_guests;
 
     @Column(name = "no_of_bathrooms", nullable = false)
     private Integer no_of_bathrooms;
@@ -26,8 +27,8 @@ public class Property {
     @Column(name = "no_of_beds", nullable = false)
     private Integer no_of_beds;
 
-    @Column(name = "name", nullable = false)
-    private String name;
+    @Column(name = "hotel_name", nullable = false)
+    private String hotelName;
 
     @ManyToOne
     @JoinColumn(name = "country_id")
@@ -37,4 +38,8 @@ public class Property {
     @JoinColumn(name = "city_id")
     private City city;
 
+
+
 }
+
+

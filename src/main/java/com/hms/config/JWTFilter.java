@@ -39,7 +39,7 @@ public class JWTFilter extends OncePerRequestFilter {
        
 
         if(token!=null && token.startsWith("Bearer ")){
-            String tokenVal = token.substring(7, token.length());
+            String tokenVal = token.substring(8, token.length()-1);
            
             String userName = jwtService.getUserName(tokenVal);
 

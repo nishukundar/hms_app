@@ -1,10 +1,14 @@
 package com.hms.controller;
 
 import com.hms.dto.LoginDTO;
+import com.hms.dto.PropertyDto;
 import com.hms.dto.TokenDTO;
+import com.hms.dto.UserDto;
 import com.hms.entity.AppUser;
+import com.hms.entity.Property;
 import com.hms.repository.AppUserRepository;
 import com.hms.service.UserService;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -81,8 +85,11 @@ public class UserController {
         user.setRole("ROLE_OWNER");
 
         AppUser savedUser = appUserRepository.save(user);
-        return  new ResponseEntity<>(savedUser, HttpStatus.CREATED);
+        ModelMapper modelMapper = new ModelMapper();
+        UserDto userDto = modelMapper.map(savedUser, UserDto.class);
+        return  new ResponseEntity<>(userDto, HttpStatus.CREATED);
     }
+
 
 
 
@@ -107,4 +114,6 @@ public class UserController {
         }
 
     }
+
+
 }
